@@ -1,0 +1,54 @@
+<!-- ======================================================================= -->
+<!-- == JSpider ANT Build Script                       == -->
+<!-- ======================================================================= -->
+<!-- $Id: build.xml,v 1.34 2003/04/06 14:00:20 vanrogu Exp $ -->
+<project name="x12-watch" basedir=".." default="init">
+
+  <property environment="env"/>
+  <property name="deply.dir" value="/data/software/x12watch" />
+  <property name="project.root" value="${basedir}" />
+  <property name="line" value="===============================================================================" />
+
+  <path id="jspider.classpath">
+    <filelist files="">
+      <file name="${project.root}/config"></file>
+    </filelist>
+    <fileset dir="${project.root}/lib" includes="*.jar"></fileset>
+  </path>
+
+  <!-- == INIT ============================================================= -->
+  <target name="init">
+    <tstamp>
+      <format property="timestamp" pattern="yyyy.MM.dd.HH.mm.ss"/>
+    </tstamp>
+    <tstamp>
+      <format property="datestamp" pattern="yyyyMMdd"/>
+    </tstamp>
+  </target>
+
+  <target name="start" depends="init">
+    <echo>||${line}||</echo>
+    <echo>|| file scan start !!</echo>
+    <echo>||-------</echo>
+    <java classname="cn.goldroid.task.Main" fork="true">
+      <classpath refid="jspider.classpath" />
+<!--
+      <jvmarg value="-Xdebug" ></jvmarg>
+      <jvmarg value="-Xrunjdwp:server=y,transport=dt_socket,address=9898,suspend=y" ></jvmarg>
+-->
+    </java>
+    <echo>||-------</echo>
+    <echo>|| file scan over !!</echo>
+    <echo>||${line}||</echo>
+  </target>
+
+  <target name="stop" depends="init">
+    <echo>||${line}||</echo>
+    <echo>|| file scan stop !!</echo>
+    <echo>||</echo>
+    <java classname="cn.goldroid.task.Stop" fork="true">
+      <classpath refid="jspider.classpath" />
+    </java>
+  </target>
+
+</project>
