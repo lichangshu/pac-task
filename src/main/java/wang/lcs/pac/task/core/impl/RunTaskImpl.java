@@ -27,7 +27,7 @@ public class RunTaskImpl implements RunTask {
 	private Thread taskThread;
 
 	public RunTaskImpl() {
-		int max = Integer.valueOf(SysConfig.getConfig("thread.task", "8"));
+		int max = Integer.valueOf(SysConfig.getConfig("queue.thread", "8"));
 		int fix = 2;
 		logger.info("RunTaskImpl ThreadPoolExecutor size core {}, max [tasek.thread] {}", fix, max);
 		this.pool = new ThreadPoolExecutor(fix, max, 60, TimeUnit.SECONDS,

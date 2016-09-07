@@ -14,6 +14,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wang.lcs.pac.task.util.SysConfig;
 
 /**
  *
@@ -22,7 +23,10 @@ import org.slf4j.LoggerFactory;
 public class SchedulerImpl implements Scheduler {
 
 	private static final Logger logger = LoggerFactory.getLogger(SchedulerImpl.class);
-	LinkedBlockingDeque<Event> eventList = new LinkedBlockingDeque<>();
+	private static final int size = Integer.valueOf(SysConfig.
+			getConfig("queue.fix", Integer.MAX_VALUE + ""));
+
+	LinkedBlockingDeque<Event> eventList = new LinkedBlockingDeque<>(size);
 	Set<Event> flagSet = new HashSet();
 	int done = 0;
 

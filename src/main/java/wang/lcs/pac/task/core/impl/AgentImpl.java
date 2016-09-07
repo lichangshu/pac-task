@@ -5,16 +5,12 @@
  */
 package wang.lcs.pac.task.core.impl;
 
-import java.util.logging.Level;
 import wang.lcs.pac.task.core.Agent;
 import wang.lcs.pac.task.core.EventDispatcher;
 import wang.lcs.pac.task.core.Scheduler;
 import wang.lcs.pac.task.core.TaskContext;
 import wang.lcs.pac.task.core.event.Event;
-import wang.lcs.pac.task.core.exception.NoSuitableItemFoundException;
 import wang.lcs.pac.task.core.exception.ShutdownException;
-import wang.lcs.pac.task.core.exception.TaskAssignmentException;
-import wang.lcs.pac.task.core.exception.TaskDoneException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

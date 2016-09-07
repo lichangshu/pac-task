@@ -27,7 +27,7 @@ public class WatchCommand extends Thread {
 
 	public static final char COMMAND_SPIDE = '\n';
 	private static final Logger logger = LoggerFactory.getLogger(WatchCommand.class);
-	private final int fix = Integer.valueOf(SysConfig.getConfig("thread.command", "1"));
+	private final int fix = Integer.valueOf(SysConfig.getConfig("watch.thread", "1"));
 	private final ServerSocket server;
 	private final TaskContext context;
 	private final ExecutorService pool;
