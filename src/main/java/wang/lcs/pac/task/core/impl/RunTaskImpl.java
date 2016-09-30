@@ -8,11 +8,10 @@ package wang.lcs.pac.task.core.impl;
 import wang.lcs.pac.task.core.RunTask;
 import wang.lcs.pac.task.core.TaskContext;
 import wang.lcs.pac.task.core.event.Event;
-import wang.lcs.pac.task.core.exception.NoSuitableItemFoundException;
 import wang.lcs.pac.task.core.exception.ShutdownException;
-import wang.lcs.pac.task.core.exception.TaskDoneException;
 import wang.lcs.pac.task.util.SysConfig;
 import java.util.concurrent.*;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +24,17 @@ public class RunTaskImpl implements RunTask {
 	private static final Logger logger = LoggerFactory.getLogger(RunTaskImpl.class);
 	private final ExecutorService pool;
 	private Thread taskThread;
+	private final long wait;
+
+	public void prepare() {
+		if (wait > 0) {
+			try {
+				Thread.sleep(wait);
+			} catch (InterruptedException ex) {
+				Thread.interrupted();
+			}
+		}
+	}
 
 	public RunTaskImpl() {
 		int max = Integer.valueOf(SysConfig.getConfig("queue.thread", "8"));
@@ -45,6 +55,7 @@ public class RunTaskImpl implements RunTask {
 				}
 			}
 		});
+		wait = Long.valueOf(SysConfig.getConfig("queue.wait", "100"));
 	}
 
 	/**
